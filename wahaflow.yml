@@ -1,0 +1,15 @@
+#baseado no meu docker run que funcionou para mim no terminal
+#docker run -d --name wpp-bot -p 3000:3000 -e "WHATSAPP_DEFAULT_ENGINE=GOWS" -e "WAHA_API_KEY=" -e "WAHA_NO_API_KEY=True" -e "WAHA_DASHBOARD_PASSWORD=" -e "WAHA_DASHBOARD_NO_PASSWORD=True" devlikeapro/waha
+services:
+  wpp-bot:
+    image: devlikeapro/waha:2026.1.1
+    container_name: wpp-bot
+    ports:
+      - "3000:3000"
+    environment:
+      WHATSAPP_DEFAULT_ENGINE: "GOWS"
+      WAHA_API_KEY: ""
+      WAHA_NO_API_KEY: "True"
+      WAHA_DASHBOARD_PASSWORD: ""
+      WAHA_DASHBOARD_NO_PASSWORD: "True"
+    restart: unless-stopped
