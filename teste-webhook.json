@@ -1,0 +1,35 @@
+{
+  "name": "teste-webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ece4988f-c9a8-4254-915c-4129850e814d",
+      "name": "Webhook",
+      "webhookId": "051d3939-6d6a-4eb9-862a-4b2468485a16"
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "017855a7-fe1c-4957-a047-3358d052c4f8",
+  "meta": {
+    "instanceId": "d4d7f9b0e09d856dbff3f118a380663dc864e57840bbb9fd45c3ffca696dced6"
+  },
+  "id": "pjsZ3wMj78XU0Gfv",
+  "tags": []
+}
