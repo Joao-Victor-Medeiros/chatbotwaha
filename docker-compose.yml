@@ -1,20 +1,45 @@
 services:
   waha:
-    image: devlikeapro/waha:2026.1.1
-    container_name: wpp-bot
+    image: devlikeapro/waha
+    container_name: waha
     ports:
       - "3000:3000"
+    volumes:
+      - waha_sessions:/app/.sessions
+      - waha_media:/tmp/whatsapp-files
     environment:
+      WHATSAPP_HOOK_URL: http://host.docker.internal:5678/webhook/webhook2
       WHATSAPP_DEFAULT_ENGINE: "GOWS"
-      WAHA_API_KEY: ""
       WAHA_NO_API_KEY: "True"
-      WAHA_DASHBOARD_PASSWORD: ""
       WAHA_DASHBOARD_NO_PASSWORD: "True"
+      WHATSAPP_HOOK_EVENTS: message.any
     restart: unless-stopped
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: wpp-bot-api
+  n8n:
+    image: n8nio/n8n:latest
+    platform: linux/amd64
+    restart: unless-stopped
+    environment:
+      WEBHOOK_URL: http://localhost:5678/
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      GENERIC_TIMEZONE: America/Sao_Paulo
+      N8N_LOG_LEVEL: debug
+      N8N_SECURE_COOKIE: false
+      N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE: true
+    volumes:
+      - n8n_data:/home/node/.n8n
     ports:
-      - "5000:5000"
+      - "5678:5678"
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data    
+
+volumes:
+  waha_sessions:
+  waha_media:
+  n8n_data:
+  redis_data:
